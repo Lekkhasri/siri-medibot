@@ -111,7 +111,160 @@ const diseaseInfo = {
     "high blood pressure": {
         symptoms: "Often asymptomatic, but can cause headaches, dizziness, and nosebleeds.",
         solutions: "Lifestyle changes (diet, exercise), medications, and regular monitoring."
-    }
+    },
+     "anemia": {
+        symptoms: "Fatigue, weakness, pale skin, shortness of breath, dizziness.",
+        solutions: "Iron supplements, vitamin B12, folate, and a balanced diet. Consult a doctor for specific treatments."
+    },
+    "acid reflux": {
+        symptoms: "Heartburn, regurgitation, chest pain, difficulty swallowing.",
+        solutions: "Antacids, proton pump inhibitors (PPIs), avoid trigger foods, eat smaller meals."
+    },
+    "parkinson's disease": {
+        symptoms: "Tremors, stiffness, slowness of movement, balance problems.",
+        solutions: "Medications (levodopa), physical therapy, and surgical options (DBS) for advanced cases."
+    },
+    "alzheimer's disease": {
+        symptoms: "Memory loss, confusion, difficulty recognizing people, changes in behavior.",
+        solutions: "Medications (donepezil), cognitive therapies, and lifestyle management."
+    },
+    "multiple sclerosis": {
+        symptoms: "Numbness, fatigue, difficulty walking, vision problems.",
+        solutions: "Disease-modifying drugs (DMDs), corticosteroids for flare-ups, physical therapy."
+    },
+    "rheumatoid arthritis": {
+        symptoms: "Joint pain, swelling, stiffness, fatigue.",
+        solutions: "Anti-inflammatory drugs, DMARDs (Disease-modifying antirheumatic drugs), physical therapy."
+    },
+    "lung cancer": {
+        symptoms: "Persistent cough, chest pain, shortness of breath, coughing up blood.",
+        solutions: "Surgery, chemotherapy, radiation therapy, targeted therapies depending on the stage."
+    },
+    "osteoporosis": {
+        symptoms: "Bone fractures, back pain, loss of height, stooped posture.",
+        solutions: "Calcium and vitamin D supplements, weight-bearing exercises, medications (bisphosphonates)."
+    },
+    "chronic fatigue syndrome": {
+        symptoms: "Extreme fatigue, sleep problems, muscle pain, headaches.",
+        solutions: "Rest, stress management, pain relievers, and exercise therapy."
+    },
+    "psoriasis": {
+        symptoms: "Red, scaly patches of skin, itching, burning.",
+        solutions: "Topical creams, phototherapy, systemic medications, and lifestyle changes."
+    },
+    "hiv/aids": {
+        symptoms: "Fatigue, fever, night sweats, swollen lymph nodes, frequent infections.",
+        solutions: "Antiretroviral therapy (ART), regular monitoring, and safer practices to prevent transmission."
+    },
+    "tuberculosis": {
+        symptoms: "Cough, chest pain, fatigue, night sweats, weight loss.",
+        solutions: "Antibiotics (6-9 months of treatment), proper nutrition, and respiratory protection."
+    },
+    "celiac disease": {
+        symptoms: "Diarrhea, weight loss, bloating, fatigue, skin rashes.",
+        solutions: "Strict gluten-free diet, nutrient supplementation if deficiencies occur."
+    },
+    "epilepsy": {
+        symptoms: "Seizures, loss of consciousness, involuntary movements.",
+        solutions: "Anticonvulsant medications, lifestyle adjustments, and safety precautions."
+    },
+    "leukemia": {
+        symptoms: "Fatigue, fever, weight loss, easy bruising, frequent infections.",
+        solutions: "Chemotherapy, stem cell transplant, and targeted therapies."
+    },
+    "hepatitis": {
+        symptoms: "Jaundice, fatigue, nausea, abdominal pain.",
+        solutions: "Antiviral medications, vaccination, and lifestyle changes to avoid further liver damage."
+    },
+    "gallstones": {
+        symptoms: "Severe pain in the upper right abdomen, nausea, vomiting.",
+        solutions: "Cholecystectomy (gallbladder removal), diet adjustments, and medication for pain management."
+    },
+    "appendicitis": {
+        symptoms: "Sharp pain in the lower right abdomen, fever, nausea, vomiting.",
+        solutions: "Appendectomy (surgical removal of the appendix), antibiotics for infection."
+    },
+    "pneumonia": {
+        symptoms: "Cough, fever, difficulty breathing, chest pain.",
+        solutions: "Antibiotics, antiviral medications, oxygen therapy for severe cases."
+    },
+    "sepsis": {
+        symptoms: "Fever, confusion, rapid heartbeat, low blood pressure, chills.",
+        solutions: "Antibiotics, IV fluids, medications to stabilize blood pressure, and intensive care."
+    },
+    "acne": {
+        symptoms: "Pimples, blackheads, whiteheads, cysts, red spots.",
+        solutions: "Topical treatments (benzoyl peroxide, salicylic acid), antibiotics, and lifestyle changes."
+    },
+    "fertility issues": {
+        symptoms: "Irregular periods, pain during intercourse, difficulty conceiving.",
+        solutions: "Fertility medications, assisted reproductive technologies (IVF, IUI), lifestyle changes."
+    },
+    "bipolar disorder": {
+        symptoms: "Extreme mood swings, depression, mania, impulsive behavior.",
+        solutions: "Mood stabilizers, antipsychotic medications, psychotherapy."
+    },
+    "schizophrenia": {
+        symptoms: "Hallucinations, delusions, disorganized thinking, lack of motivation.",
+        solutions: "Antipsychotic medications, therapy, support groups."
+    },
+    "anxiety disorders": {
+        symptoms: "Excessive worry, panic attacks, restlessness, difficulty concentrating.",
+        solutions: "Cognitive-behavioral therapy (CBT), medications (antidepressants, benzodiazepines), relaxation techniques."
+    },
+    "autism spectrum disorder": {
+        symptoms: "Difficulty with communication, repetitive behaviors, sensory sensitivities.",
+        solutions: "Behavioral therapies, speech therapy, and social skills training."
+    },
+    "sinusitis": {
+        symptoms: "Nasal congestion, headache, facial pressure, thick nasal discharge.",
+        solutions: "Decongestants, nasal sprays, saline rinses, and antibiotics if bacterial."
+    },
+    "viral infections": {
+        symptoms: "Varies, but commonly includes fever, fatigue, sore throat, cough.",
+        solutions: "Rest, hydration, antiviral medications if available, and supportive care."
+    },
+    "liver cirrhosis": {
+        symptoms: "Fatigue, jaundice, abdominal swelling, confusion.",
+        solutions: "Avoid alcohol, liver transplant in severe cases, medications to manage symptoms"
+    },
+       "asthma": {
+        symptoms: "Shortness of breath, wheezing, coughing, chest tightness.",
+        solutions: "Inhalers, corticosteroids, bronchodilators, avoiding triggers."
+    },
+    "arthritis": {
+        symptoms: "Joint pain, stiffness, swelling, decreased range of motion.",
+        solutions: "Pain relievers, anti-inflammatory medications, physical therapy, joint replacement surgery."
+    },
+    "eczema": {
+        symptoms: "Dry, itchy, inflamed skin, redness, and swelling.",
+        solutions: "Moisturizers, topical steroids, avoiding triggers, antihistamines."
+    },
+    "gout": {
+        symptoms: "Severe joint pain, redness, swelling, usually in the big toe.",
+        solutions: "Anti-inflammatory medications, colchicine, hydration, avoiding purine-rich foods."
+    },
+    "stroke": {
+        symptoms: "Sudden numbness or weakness, confusion, difficulty speaking, dizziness.",
+        solutions: "Immediate medical attention, medications (tPA), rehabilitation therapies."
+    },
+    "stomach pain": {
+        symptoms: "Abdominal discomfort, bloating, nausea, cramps.",
+        solutions: "Rest, hydration, antacids, and medical consultation if severe."
+    },
+    "hair fall": {
+        symptoms: "Thinning hair, excessive shedding, bald spots.",
+        solutions: "Hair growth treatments, medications (minoxidil, finasteride), balanced diet."
+    },
+    "eye pain": {
+        symptoms: "Soreness, itching, dryness, redness, blurred vision.",
+        solutions: "Eye drops, rest, proper eye care, seek medical attention if persistent."
+    },
+    "ear pain": {
+        symptoms: "Sharp or dull pain in the ear, ear congestion, hearing loss.",
+        solutions: "Pain relievers, warm compress, antibiotics if infection is present."
+    } 
+    
 };
 
 // Function to add a message to the chatbox
