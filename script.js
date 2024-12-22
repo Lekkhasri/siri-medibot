@@ -267,7 +267,14 @@ const diseaseInfo = {
 function addMessage(className, text, showHandIcon = false) {
     const chatboxBody = document.getElementById('chatboxBody');
     const handIcon = showHandIcon ? '<span class="hand-icon">👋</span>' : '';
-    chatboxBody.innerHTML += `<div class="message ${className}">${handIcon}${text}</div>`;
+    
+    // Create a new message element
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', className);
+    messageElement.innerHTML = handIcon + text;
+
+    // Append the new message element to the chatbox body
+    chatboxBody.appendChild(messageElement);
 }
 
 // Initial greeting
@@ -284,8 +291,10 @@ document.getElementById('sendButton').addEventListener('click', () => {
         // Add user message to chatbox
         addMessage('user-message', userMessage);
         
-        // Process user message
-        const disease = userMessage.toLowerCase().replace(/[^a-z]/g, '');
+        // Normalize the input to lowercase and remove extra spaces
+        const disease = userMessage.toLowerCase().trim();
+        
+        // Check if the disease exists in the diseaseInfo object
         if (diseaseInfo[disease]) {
             const { symptoms, solutions } = diseaseInfo[disease];
             addMessage('bot-message', `${symptoms}<br>${solutions}<br>Take care of yourself! 🤗`);
