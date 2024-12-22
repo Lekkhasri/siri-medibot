@@ -256,10 +256,6 @@ const diseaseInfo = {
         symptoms: "Thinning hair, excessive shedding, bald spots.",
         solutions: "Hair growth treatments, medications (minoxidil, finasteride), balanced diet."
     },
-    "eye pain": {
-        symptoms: "Soreness, itching, dryness, redness, blurred vision.",
-        solutions: "Eye drops, rest, proper eye care, seek medical attention if persistent."
-    },
     "ear pain": {
         symptoms: "Sharp or dull pain in the ear, ear congestion, hearing loss.",
         solutions: "Pain relievers, warm compress, antibiotics if infection is present."
