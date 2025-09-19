@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 export async function handler(event) {
   try {
     if (!event.body) {
@@ -7,15 +9,7 @@ export async function handler(event) {
       };
     }
 
-    let userMessage;
-    try {
-      userMessage = JSON.parse(event.body).userMessage;
-    } catch {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ reply: "Invalid JSON input." }),
-      };
-    }
+    const { userMessage } = JSON.parse(event.body);
 
     if (!userMessage) {
       return {
@@ -24,6 +18,7 @@ export async function handler(event) {
       };
     }
 
+    // Call OpenAI API
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -45,6 +40,8 @@ export async function handler(event) {
     });
 
     const data = await response.json();
+
+    console.log("OpenAI response:", data); // ← Debug line
 
     return {
       statusCode: 200,
