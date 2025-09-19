@@ -1,6 +1,5 @@
 export async function handler(event) {
   try {
-    // Check if request has a body
     if (!event.body) {
       return {
         statusCode: 400,
@@ -8,8 +7,8 @@ export async function handler(event) {
       };
     }
 
-    // Parse user message
     const { userMessage } = JSON.parse(event.body);
+    console.log("User message:", userMessage);
 
     if (!userMessage) {
       return {
@@ -18,7 +17,6 @@ export async function handler(event) {
       };
     }
 
-    // Call OpenAI API using built-in fetch
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -28,34 +26,28 @@ export async function handler(event) {
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
         messages: [
-          {
-            role: "system",
-            content:
-              "You are a helpful medical assistant. Answer health queries briefly and clearly. If unsure, politely suggest consulting a doctor.",
-          },
-          { role: "user", content: userMessage },
+          { role: "system", content: "You are a helpful medical assistant." },
+          { role: "user", content: userMessage }
         ],
-        temperature: 0.7,
+        temperature: 0.7
       }),
     });
 
-    // Parse OpenAI response
     const data = await response.json();
+    console.log("OpenAI response:", data);
 
-    // Return reply
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        reply: data.choices?.[0]?.message?.content || "Sorry, no response from OpenAI.",
-      }),
-    };
+    const reply = data?.choices?.[0]?.message?.content;
+    if (!reply) {
+      return { statusCode: 500, body: JSON.stringify({ reply: "Sorry, no response from OpenAI." }) };
+    }
+
+    return { statusCode: 200, body: JSON.stringify({ reply }) };
+
   } catch (error) {
     console.error("Error in chatbot function:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({
-        reply: "Sorry, something went wrong. Please try again later.",
-      }),
+      body: JSON.stringify({ reply: "Sorry, something went wrong. Please try again later." }),
     };
   }
 }
