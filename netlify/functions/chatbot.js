@@ -36,9 +36,15 @@ exports.handler = async (event) => {
     const data = await response.json();
     console.log("OpenAI response:", data);
 
+    if (data.error) {
+      console.error("OpenAI API Error:", data.error.message);
+      return { statusCode: 500, body: JSON.stringify({ reply: "Sorry, the connection to the AI assistant failed. Please check the server logs for details." }) };
+    }
+
     const reply = data?.choices?.[0]?.message?.content;
     if (!reply) {
-      return { statusCode: 500, body: JSON.stringify({ reply: "Sorry, no response from OpenAI." }) };
+      console.error("Unexpected API response structure:", data);
+      return { statusCode: 500, body: JSON.stringify({ reply: "Sorry, the API returned an unexpected response." }) };
     }
 
     return { statusCode: 200, body: JSON.stringify({ reply }) };
