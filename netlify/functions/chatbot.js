@@ -7,7 +7,15 @@ export async function handler(event) {
       };
     }
 
-    const { userMessage } = JSON.parse(event.body);
+    let userMessage;
+    try {
+      userMessage = JSON.parse(event.body).userMessage;
+    } catch {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ reply: "Invalid JSON input." }),
+      };
+    }
 
     if (!userMessage) {
       return {
@@ -40,7 +48,9 @@ export async function handler(event) {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ reply: data.choices?.[0]?.message?.content || "Sorry, no response from OpenAI." }),
+      body: JSON.stringify({
+        reply: data.choices?.[0]?.message?.content || "Sorry, no response from OpenAI.",
+      }),
     };
   } catch (error) {
     console.error("Error in chatbot function:", error);
