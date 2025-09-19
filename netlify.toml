@@ -1,3 +1,4 @@
 [build]
-  publish = "/"                  # because index.html is in the root
+  publish = "sirimedibot"             # your static folder
   functions = "netlify/functions"
+
