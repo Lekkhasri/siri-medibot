@@ -1,6 +1,4 @@
-import fetch from "node-fetch";
-
-export async function handler(event) {
+export async function handler(event, context) {
   try {
     const { userMessage } = JSON.parse(event.body);
 
@@ -25,12 +23,14 @@ export async function handler(event) {
     });
 
     const data = await response.json();
+    const reply = data?.choices?.[0]?.message?.content || "Sorry, I couldn't get a response.";
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ reply: data.choices[0].message.content }),
+      body: JSON.stringify({ reply }),
     };
   } catch (error) {
+    console.error(error);
     return {
       statusCode: 500,
       body: JSON.stringify({
