@@ -1,4 +1,4 @@
-export async function handler(event) {
+exports.handler = async (event) => {
   try {
     if (!event.body) {
       return {
@@ -50,4 +50,5 @@ export async function handler(event) {
       body: JSON.stringify({ reply: "Sorry, something went wrong. Please try again later." }),
     };
   }
-}
+};
+
