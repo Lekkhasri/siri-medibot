@@ -24,19 +24,27 @@ document.getElementById('sendButton').addEventListener('click', () => {
 
   addMessage('user-message', userMessage);
 
-  fetch('/.netlify/functions/chatbot', {
+  fetch('/.netlify/functions/chatbot', { // Make sure this path is correct
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json', // important
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ userMessage }),
   })
-  .then(res => res.json())
+  .then(res => {
+    if (!res.ok) {
+      // If server response is not OK, parse the error message from the body
+      return res.json().then(errorData => Promise.reject(errorData));
+    }
+    return res.json();
+  })
   .then(data => {
     addMessage('bot-message', data.reply);
   })
-  .catch(() => {
-    addMessage('bot-message', 'Sorry, something went wrong. Try again later.');
+  .catch((error) => {
+    console.error('Fetch Error:', error);
+    // Display the specific error reply from the server or a generic message
+    addMessage('bot-message', error.reply || 'Sorry, something went wrong. Try again later.');
   });
 
   messageInput.value = '';
