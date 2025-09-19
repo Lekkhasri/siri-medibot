@@ -1,4 +1,6 @@
 [build]
-  publish = "sirimedibot"             # your static folder
-  functions = "netlify/functions"
+  publish = "."                       # root folder with index.html
+  functions = "netlify/functions"     # path to serverless functions
+  command = ""                        # no build command needed for static HTML
+
 
