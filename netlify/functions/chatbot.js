@@ -1,6 +1,20 @@
-export async function handler(event, context) {
+export async function handler(event) {
   try {
+    if (!event.body) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ reply: "No input received." }),
+      };
+    }
+
     const { userMessage } = JSON.parse(event.body);
+
+    if (!userMessage) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ reply: "Message is empty." }),
+      };
+    }
 
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -23,14 +37,13 @@ export async function handler(event, context) {
     });
 
     const data = await response.json();
-    const reply = data?.choices?.[0]?.message?.content || "Sorry, I couldn't get a response.";
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ reply }),
+      body: JSON.stringify({ reply: data.choices?.[0]?.message?.content || "Sorry, no response from OpenAI." }),
     };
   } catch (error) {
-    console.error(error);
+    console.error("Error in chatbot function:", error);
     return {
       statusCode: 500,
       body: JSON.stringify({
