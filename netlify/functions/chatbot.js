@@ -1,5 +1,6 @@
 export async function handler(event) {
   try {
+    // Check if request has a body
     if (!event.body) {
       return {
         statusCode: 400,
@@ -7,6 +8,7 @@ export async function handler(event) {
       };
     }
 
+    // Parse user message
     const { userMessage } = JSON.parse(event.body);
 
     if (!userMessage) {
@@ -16,7 +18,7 @@ export async function handler(event) {
       };
     }
 
-    // Netlify Node 18 runtime has global fetch, no import needed
+    // Call OpenAI API using built-in fetch
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -37,8 +39,10 @@ export async function handler(event) {
       }),
     });
 
+    // Parse OpenAI response
     const data = await response.json();
 
+    // Return reply
     return {
       statusCode: 200,
       body: JSON.stringify({
