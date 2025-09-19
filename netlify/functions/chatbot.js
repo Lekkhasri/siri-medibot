@@ -1,5 +1,3 @@
-import fetch from "node-fetch";
-
 export async function handler(event) {
   try {
     if (!event.body) {
@@ -18,7 +16,7 @@ export async function handler(event) {
       };
     }
 
-    // Call OpenAI API
+    // Netlify Node 18 runtime has global fetch, no import needed
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -40,8 +38,6 @@ export async function handler(event) {
     });
 
     const data = await response.json();
-
-    console.log("OpenAI response:", data); // ← Debug line
 
     return {
       statusCode: 200,
