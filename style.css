@@ -44,6 +44,7 @@ header h1 {
     overflow-y: auto;
     border-bottom: 1px solid #ddd;
     background: rgba(241, 248, 253, 0.8); /* Light blue with transparency for better readability */
+    font-size: 16px;
 }
 
 .message {
@@ -51,6 +52,8 @@ header h1 {
     padding: 10px;
     border-radius: 5px;
     line-height: 1.4;
+    display: flex;
+    align-items: center;
 }
 
 .user-message {
@@ -108,40 +111,4 @@ footer p {
     margin: 0;
     color: #0277bd; /* Darker blue */
 }
-
-
-
-.chatbox-body {
-    padding: 15px;
-    height: 100%;
-    overflow-y: auto;
-    border-bottom: 1px solid #ddd;
-    background: rgba(241, 248, 253, 0.8); /* Light blue with transparency for better readability */
-    font-size: 16px;
-}
-
-.message {
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    line-height: 1.4;
-    display: flex;
-    align-items: center;
-}
-
-.user-message {
-    background: #e3f2fd; /* Very light blue */
-    text-align: right;
-}
-
-.bot-message {
-    background: #bbdefb; /* Light blue */
-}
-
-.hand-icon {
-    margin-right: 10px;
-    font-size: 20px;
-}
-
-   
 
