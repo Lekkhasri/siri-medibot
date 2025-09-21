@@ -264,79 +264,97 @@ const diseaseInfo = {
 };
 
 
-// ✅ Step 2: DOM Elements (make sure these IDs exist in your HTML)
+// ✅ DOM Elements
 const chatboxBody = document.getElementById("chatboxBody");
 const messageInput = document.getElementById("messageInput");
 const sendButton = document.getElementById("sendButton");
 
-// ✅ Step 3: Function to display messages
-function addMessage(sender, text) {
+// ✅ Function to display messages
+function addMessage(sender, text, withHand = false) {
     const msg = document.createElement("div");
     msg.classList.add(sender === "user" ? "user-message" : "bot-message");
-    msg.innerText = text;
+    
+    if (withHand) {
+        msg.innerHTML = `<span class="hand-icon">🤚</span>${text}`;
+    } else {
+        msg.innerText = text;
+    }
+
     chatboxBody.appendChild(msg);
     chatboxBody.scrollTop = chatboxBody.scrollHeight; // auto-scroll
 }
 
-// ✅ Step 4: Function to handle user input
+// ✅ Initial greeting message
+addMessage("bot", "Hello! How can I assist you? 😊", true);
+
+// ✅ Function to handle user input
 async function handleMessage() {
     const userInput = messageInput.value.trim();
     if (!userInput) return;
 
-    // Show user message
     addMessage("user", userInput);
     messageInput.value = "";
 
     const lowerInput = userInput.toLowerCase();
 
-    // Step 4A: Check if input matches disease database
+    // Step 4A: Check disease database
     if (diseaseInfo[lowerInput]) {
         const data = diseaseInfo[lowerInput];
-        addMessage("bot", `🤒 **Symptoms:** ${data.symptoms}\n💊 **Solutions:** ${data.solutions}`);
+        await showTypingAnimation();
+        addMessage("bot", `🤒 Symptoms: ${data.symptoms}\n💊 Solutions: ${data.solutions}`);
         return;
     }
 
-// Step 4B: Fallback to Gemini API (direct call)
-try {
-    const apiKey = "AIzaSyDxO17gfwuK_lh3mgAQQeH7btI6vSb2AWw"; // your API key
-    const response = await fetch(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-goog-api-key": apiKey
-            },
-            body: JSON.stringify({
-                contents: [
-                    {
-                        parts: [
-                            { text: userInput }
-                        ]
-                    }
-                ]
-            })
+    // Step 4B: Fallback to Gemini API
+    try {
+        await showTypingAnimation();
+
+        const apiKey = "YOUR_API_KEY_HERE";
+        const response = await fetch(
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-goog-api-key": apiKey
+                },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: userInput }] }]
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (result?.candidates?.[0]?.content) {
+            addMessage("bot", result.candidates[0].content[0].text);
+        } else {
+            addMessage("bot", "⚠️ Sorry, I could not process your request.");
         }
-    );
-
-    const result = await response.json();
-
-    // Extract text from response
-    if (result?.candidates?.[0]?.content) {
-        addMessage("bot", result.candidates[0].content[0].text);
-    } else {
-        addMessage("bot", "⚠️ Sorry, I could not process your request.");
+    } catch (error) {
+        console.error("Fetch Error:", error);
+        addMessage("bot", "⚠️ Connection failed. Please try again later.");
     }
-
-} catch (error) {
-    console.error("Fetch Error:", error);
-    addMessage("bot", "⚠️ Connection failed. Please try again later.");
 }
 
+// ✅ Typing animation for 2-3 seconds
+function showTypingAnimation() {
+    return new Promise((resolve) => {
+        const typingMsg = document.createElement("div");
+        typingMsg.classList.add("bot-message");
+        typingMsg.innerHTML = '<span class="hand-icon">🤚</span>Typing...';
+        chatboxBody.appendChild(typingMsg);
+        chatboxBody.scrollTop = chatboxBody.scrollHeight;
 
-// ✅ Step 5: Event listeners for button click & Enter key
+        setTimeout(() => {
+            chatboxBody.removeChild(typingMsg);
+            resolve();
+        }, 2000); // 2 seconds
+    });
+}
+
+// ✅ Event listeners
 sendButton.addEventListener("click", handleMessage);
 messageInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") handleMessage();
 });
-
