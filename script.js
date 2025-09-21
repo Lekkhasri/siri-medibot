@@ -296,33 +296,47 @@ async function handleMessage() {
         return;
     }
 
-    // Step 4B: Fallback to Gemini API
-    try {
-        const response = await fetch("/.netlify/functions/chatbot", {
+// Step 4B: Fallback to Gemini API (direct call)
+try {
+    const apiKey = "AIzaSyDxO17gfwuK_lh3mgAQQeH7btI6vSb2AWw"; // your API key
+    const response = await fetch(
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent",
+        {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: userInput })
-        });
-
-        if (!response.ok) {
-            throw new Error(`Server Error: ${response.status}`);
+            headers: {
+                "Content-Type": "application/json",
+                "X-goog-api-key": apiKey
+            },
+            body: JSON.stringify({
+                contents: [
+                    {
+                        parts: [
+                            { text: userInput }
+                        ]
+                    }
+                ]
+            })
         }
+    );
 
-        const result = await response.json();
-        if (result.reply) {
-            addMessage("bot", result.reply);
-        } else {
-            addMessage("bot", "⚠️ Sorry, I could not process your request.");
-        }
+    const result = await response.json();
 
-    } catch (error) {
-        console.error("Fetch Error:", error);
-        addMessage("bot", "⚠️ Connection failed. Please try again later.");
+    // Extract text from response
+    if (result?.candidates?.[0]?.content) {
+        addMessage("bot", result.candidates[0].content[0].text);
+    } else {
+        addMessage("bot", "⚠️ Sorry, I could not process your request.");
     }
+
+} catch (error) {
+    console.error("Fetch Error:", error);
+    addMessage("bot", "⚠️ Connection failed. Please try again later.");
 }
+
 
 // ✅ Step 5: Event listeners for button click & Enter key
 sendButton.addEventListener("click", handleMessage);
 messageInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") handleMessage();
 });
+
